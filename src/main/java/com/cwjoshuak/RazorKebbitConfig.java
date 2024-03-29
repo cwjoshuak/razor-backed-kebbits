@@ -7,7 +7,7 @@ import net.runelite.client.config.Config;
 import net.runelite.client.config.ConfigGroup;
 import net.runelite.client.config.ConfigItem;
 
-@ConfigGroup("example")
+@ConfigGroup("razorkebbittracking")
 public interface RazorKebbitConfig extends Config {
 	@ConfigItem(
 		position = 0,
