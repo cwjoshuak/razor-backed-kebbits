@@ -26,7 +26,9 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @PluginDescriptor(
-	name = "Razor Kebbit Tracking"
+	name = "Razor Kebbit Tracking",
+	description = "Track razor-backed kebbits like you would Herbiboar.",
+	tags = {"razor", "kebbit", "backed", "razorback", "razorbacked", "razor-backed", "kebbits", "hunter", "rumour"}
 )
 @Getter
 public class RazorKebbitPlugin extends Plugin {
@@ -63,11 +65,9 @@ public class RazorKebbitPlugin extends Plugin {
 		ObjectID.BURROW_19440
 	);
 
-	RBKebbitSearchSpot[] searchSpots = RBKebbitSearchSpot.values();
-
 	private static final Integer RAZOR_KEBBIT_REGION = 9272;
 	private static final Integer VARBIT_FINISH = 2994;
-	List<Integer> varbitIds = Arrays.stream(searchSpots).map(s -> s.varbit).collect(Collectors.toList());
+	List<Integer> varbitIds = Arrays.stream(RBKebbitSearchSpot.values()).map(s -> s.varbit).collect(Collectors.toList());
 	@Getter
 	private final List<WorldPoint> currentPath = Lists.newArrayList();
 
@@ -101,10 +101,10 @@ public class RazorKebbitPlugin extends Plugin {
 
 	@Override
 	protected void shutDown() throws Exception {
-		log.info("Example stopped!");
 		overlayManager.remove(overlay);
-		currentPath.clear();
-		trailObjects.clear();
+		resetTrailData();
+		clearCache();
+		inRazorKebbitArea = false;
 	}
 
 	@Subscribe
@@ -125,11 +125,13 @@ public class RazorKebbitPlugin extends Plugin {
 
 	@Subscribe
 	public void onVarbitChanged(VarbitChanged event) {
+
 		updateTrailData(event);
 	}
 
 	@Subscribe
 	public void onGameObjectSpawned(GameObjectSpawned event) {
+
 		onTileObject(null, event.getGameObject());
 	}
 
@@ -140,11 +142,13 @@ public class RazorKebbitPlugin extends Plugin {
 
 	@Subscribe
 	public void onGroundObjectSpawned(GroundObjectSpawned event) {
+
 		onTileObject(null, event.getGroundObject());
 	}
 
 	@Subscribe
 	public void onGroundObjectDespawned(GroundObjectDespawned event) {
+
 		onTileObject(event.getGroundObject(), null);
 	}
 
