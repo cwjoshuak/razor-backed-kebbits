@@ -60,9 +60,9 @@ public class RazorKebbitPlugin extends Plugin {
 	);
 
 	private static final Set<Integer> START_OBJECT_IDS = ImmutableSet.of(
-		ObjectID.BURROW,
-		ObjectID.BURROW_19439,
-		ObjectID.BURROW_19440
+			ObjectID.BURROW,
+			ObjectID.BURROW_19580,
+			ObjectID.BURROW_19579
 	);
 
 	private static final Integer RAZOR_KEBBIT_REGION = 9272;
